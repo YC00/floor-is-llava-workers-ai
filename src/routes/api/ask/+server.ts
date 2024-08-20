@@ -6,7 +6,8 @@ import type { RequestEvent, RequestHandler } from './$types';
 export const POST: RequestHandler = async ({ request, params, platform }: RequestEvent) => {
 	const data = await request.formData();
 	const image = data.get('image') as File;
-	const question = data.get('question') as string;
+	// const question = data.get('question') as string;
+	const question = 'Extract all the texts found in the image';
 	if (!image || !question) {
 		return error(400, { message: 'Image and question are required' });
 	}
@@ -16,7 +17,7 @@ export const POST: RequestHandler = async ({ request, params, platform }: Reques
 	if (image.size > maxFileSize) {
 		return error(413, { message: 'File size exceeds 10MB limit' });
 	}
-	
+
     const blob = await image.arrayBuffer();
 	const response = await platform?.env.AI.run('@cf/llava-hf/llava-1.5-7b-hf', {
         image: [...new Uint8Array(blob)],
