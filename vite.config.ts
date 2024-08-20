@@ -4,8 +4,11 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [sveltekit()],
 	server: {
-		origin: 'https://ai-handwriting-ocr.p.rapidapi.com',
-		host: 'rapidapi.com',
-		port: 80
+		proxy: {
+			'/': {
+				target: 'https://ai-handwriting-ocr.p.rapidapi.com',
+				changeOrigin: true
+			},
+		},
 	}
 });
