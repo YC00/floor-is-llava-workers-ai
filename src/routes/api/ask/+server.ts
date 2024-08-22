@@ -7,7 +7,7 @@ export const POST: RequestHandler = async ({ request, params, platform }: Reques
 	const data = await request.formData();
 	const image = data.get('image') as File;
 	// const question = data.get('question') as string;
-	const question = 'Extract all the texts found in the image';
+	const question = 'Extract all the texts found in the image without description';
 	if (!image || !question) {
 		return error(400, { message: 'Image and question are required' });
 	}
